@@ -50,11 +50,19 @@ namespace SimpleWMS
             string itmName = "default";
             int itmInit = 0;
 
-            Console.WriteLine("Registering an item");
+            Console.WriteLine("Registering an item - Type 'C' to cancel");
             Console.WriteLine(" ");
 
             Console.Write("Item name: ");
             itmName = Console.ReadLine();
+
+            if (itmName.ToLower() == "c")
+            {
+                Console.Clear();
+                Console.WriteLine("Cancelled");
+                return;
+            }
+                
 
             Console.Write("Item initial quantity: ");
             itmInit = Convert.ToInt32(Console.ReadLine());
@@ -67,11 +75,18 @@ namespace SimpleWMS
             string itmName = "default";
             int itmQty = 0;
 
-            Console.WriteLine("Adding an Item");
+            Console.WriteLine("Adding an Item - Type 'C' to cancel");
             Console.WriteLine(" ");
 
             Console.Write("Item name: ");
             itmName = Console.ReadLine();
+
+            if (itmName.ToLower() == "c")
+            {
+                Console.Clear();
+                Console.WriteLine("Cancelled");
+                return;
+            }
 
             Console.Write("Quantity to be added: ");
             itmQty = Convert.ToInt32(Console.ReadLine());
@@ -84,11 +99,18 @@ namespace SimpleWMS
             string itmName = "default";
             int itmQty = 0;
 
-            Console.WriteLine("Shipping an Item");
+            Console.WriteLine("Shipping an Item - Type 'C' to cancel");
             Console.WriteLine(" ");
 
             Console.Write("Item name: ");
             itmName = Console.ReadLine();
+
+            if (itmName.ToLower() == "c")
+            {
+                Console.Clear();
+                Console.WriteLine("Cancelled");
+                return;
+            }
 
             Console.Write("Quantity to be shipped: ");
             itmQty = Convert.ToInt32(Console.ReadLine());
