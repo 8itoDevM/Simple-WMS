@@ -22,10 +22,10 @@ namespace SimpleWMS
             return new MySqlConnection(connectionString);
         }
 
-        public int CountItems()
+        public void CountItems()
         {
             int totalItems = 0;
-            string query = "SELECT itemQty FROM Items";
+            string query = "SELECT itemQty, itemName FROM Items";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -38,11 +38,12 @@ namespace SimpleWMS
                         while (reader.Read())
                         {
                             totalItems += reader.GetInt32(0);
+                            Console.WriteLine(reader.GetString(1) + ": " + reader.GetInt32(0));
                         }
+                        Console.WriteLine($"There are {totalItems} items in stock");
                     }
                 }
             }
-            return totalItems;
         }
 
         public void ShowUsers()

@@ -36,8 +36,8 @@ namespace SimpleWMS
 
         static void CountItems(DatabaseManager dbManager)
         {
-            int qty = dbManager.CountItems();
-            Console.WriteLine($"There are {qty} items in stock");
+            dbManager.CountItems();
+            //Console.WriteLine($"There are {qty} items in stock");
         }
 
         static void ShowUsers(DatabaseManager dbManager)
