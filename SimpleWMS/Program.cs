@@ -21,7 +21,15 @@ namespace SimpleWMS
             Console.WriteLine("Ship Item - 5");
             Console.WriteLine("Exit - 0");
 
-            i = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                i = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                return -1;
+            }
+
             Console.Clear();
             return i;
         }
