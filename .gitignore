@@ -1,0 +1,6 @@
+# Ignore appsettings.json
+appsettings.json
+
+.vs/
+/SimpleWMS/SimpleWMS.csproj
+/SimpleWMS.sln
