@@ -18,7 +18,8 @@ namespace SimpleWMS
             Console.WriteLine("Show users - 2");
             Console.WriteLine("Register item - 3");
             Console.WriteLine("Add items - 4");
-            Console.WriteLine("Ship Item - 5");
+            Console.WriteLine("Ship items - 5");
+            Console.WriteLine("Remove items - 6");
             Console.WriteLine("Exit - 0");
 
             try
@@ -118,6 +119,50 @@ namespace SimpleWMS
             dbManager.ShipItem(itmName, itmQty);
         }
 
+        static void RemoveItems(DatabaseManager dbManager)
+        {
+            string itmName = "default";
+            bool confirmed = false;
+            string confirmation = "default";
+
+            Console.WriteLine("Removing an Item - Type 'C' to cancel");
+            Console.WriteLine(" ");
+
+            Console.Write("Item name: ");
+            itmName = Console.ReadLine();
+
+            if (itmName.ToLower() == "c")
+            {
+                Console.Clear();
+                Console.WriteLine("Cancelled");
+                return;
+            }
+
+            while (!confirmed)
+            {
+                Console.Write($"Are you sure you want to delete {itmName}? - Y/N");
+                confirmation = Console.ReadLine();
+
+                if(confirmation.ToLower() == "y")
+                {
+                    dbManager.RemoveItems(itmName);
+                    confirmed = true;
+                }
+                else if(confirmation.ToLower() == "n")
+                {
+                    confirmed = false;
+                    Console.Clear();
+                    Console.WriteLine("Cancelled");
+                    return;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid option");
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
@@ -172,6 +217,13 @@ namespace SimpleWMS
                         Console.Clear();
 
                         ShipItems(dbManager);
+
+                        Console.ReadLine();
+                        break;
+                    case 6:
+                        Console.Clear();
+
+                        RemoveItems(dbManager);
 
                         Console.ReadLine();
                         break;

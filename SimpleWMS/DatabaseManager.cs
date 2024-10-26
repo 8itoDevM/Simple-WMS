@@ -182,5 +182,50 @@ namespace SimpleWMS
                 }
             }
         }
+
+        public void RemoveItems(string itemName)
+        {
+            string queryDelete = "DELETE FROM Items WHERE itemName = @itemName";
+            string verifySelect = "SELECT itemId, itemName, itemQty FROM Items WHERE itemName = @itemName";
+            string updateIds = "UPDATE Items SET itemId = itemId - 1 WHERE itemId > @deletedItemId";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand(verifySelect, connection))
+                {
+                    command.Parameters.AddWithValue("@itemName", itemName);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
+                        {
+                            Console.WriteLine("Err: Item doesn't exist");
+                            return;
+                        }
+
+                        reader.Read();
+                        int deletedItemId = reader.GetInt32(0); // Get the itemId of the item to be deleted
+                        reader.Close();
+
+                        // Delete the item
+                        using (MySqlCommand commandDelete = new MySqlCommand(queryDelete, connection))
+                        {
+                            commandDelete.Parameters.AddWithValue("@itemName", itemName);
+                            commandDelete.ExecuteNonQuery();
+                            Console.WriteLine("Item Removed successfully!");
+                        }
+
+                        // Update the itemId of items that come after the deleted item
+                        using (MySqlCommand commandUpdate = new MySqlCommand(updateIds, connection))
+                        {
+                            commandUpdate.Parameters.AddWithValue("@deletedItemId", deletedItemId);
+                            commandUpdate.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+        }
     }
 }
